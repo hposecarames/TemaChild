@@ -25,16 +25,23 @@ if ( is_home() ) {
 
 <div class="main-content clear-fix<?php echo esc_attr(ashe_options( 'general_content_width' )) === 'boxed' ? ' boxed-wrapper': ''; ?>" data-layout="<?php echo esc_attr( ashe_options( 'general_home_layout' ) ); ?>" data-sidebar-sticky="<?php echo esc_attr( ashe_options( 'general_sidebar_sticky' ) ); ?>">
 	
-	<?php
-	if (have_posts()):
-		while(have_posts()):
-			the_post();
-			the_title();
-		endwhile;
-	endif;
-			
-		
-	
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+	<article class="<?php post_class();?>">
+		<header>
+		<h1><?php the_title(); ?></h1>
+		</header>
+		<?php the_content(); ?>
+	</article>
+
+<?php endwhile; else: ?>
+
+	<article>
+		<p>No hay contenido a mostrar </p>
+	</article>
+
+<?php endif; ?>
+<?php
 	// Sidebar Left
 	get_template_part( 'templates/sidebars/sidebar', 'left' ); 
 
